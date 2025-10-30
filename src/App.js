@@ -7,6 +7,9 @@ function App() {
   const [isRaining, setIsRaining] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [weatherInfo, setWeatherInfo] = useState('');
+  const [weather, setWeather] = useState('sunny');
+
+  const toggleRain = () => setIsRaining(prev => !prev);
 
   const toggleWeather = () => {
     setWeather(current => {
@@ -34,7 +37,7 @@ function App() {
         return;
       }
 
-      const { latitude, longitude, name, country } = geoData.results[0];
+      const { latitude, longitude, name } = geoData.results[0];
       const weatherType = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=weathercode`);
       const weatherTypeData = await weatherType.json();
       const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
@@ -44,7 +47,6 @@ function App() {
         <h2>${name}</h2>
         <p>${weatherTypeCodeDisplay[String(weatherTypeData.hourly.weathercode[0])]}</p>
         <p>${weatherData.current_weather.temperature} °C</p>
-        <p>Wind Speed: ${weatherData.current_weather.windspeed} km/h</p>
       `);
     } catch (error) {
       console.error('Error:', error);
@@ -75,15 +77,13 @@ function App() {
       </aside>
       <main className="main-content">
         <div className="image-wrapper-wrapper">
-          <div className="overlay-text-temperature">27 C</div>
-          <div className="overlay-text-general-info">27 C</div>
-          <Window weather={weather} />
+          <div className="overlay-text-general-info">Humidity, UV</div>
+          <Window weather={weather} isRaining={isRaining} onToggleRain={toggleRain} />
           <div
-            className="overlay-text"
-            id="overlay-text"
+            className="overlay-text-temperature"
+            id="overlay-text-temperature"
             dangerouslySetInnerHTML={{ __html: weatherInfo }}
           />
-          <Window isRaining={isRaining} onToggleRain={toggleRain} />
         </div>
       </main>
     </div>

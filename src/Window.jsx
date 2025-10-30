@@ -34,21 +34,27 @@ function Window({ weather }) {
         }
     }, [weather]);
 
+    const cloudStyle = {
+        width: '125px',  // Set a very small base size
+        height: 'auto', // Maintain aspect ratio
+        imageRendering: 'pixelated' // Keep pixel art crisp
+    };
+
     return (
         <div className={`image-wrapper ${weather}-sky`}>
             <div className="clouds-container">
                 {weather === 'rainy' && (
                     <>
-                        <img src={rainyCloud1} alt="rainy cloud" className="cloud rainy-cloud-1" />
-                        <img src={rainyCloud2} alt="rainy cloud" className="cloud rainy-cloud-2" />
-                        <img src={rainyCloud1} alt="rainy cloud" className="cloud rainy-cloud-3" />
+                        <img style={cloudStyle} src={rainyCloud1} alt="rainy cloud" className="cloud rainy-cloud-1" />
+                        <img style={cloudStyle} src={rainyCloud2} alt="rainy cloud" className="cloud rainy-cloud-2" />
+                        <img style={cloudStyle} src={rainyCloud1} alt="rainy cloud" className="cloud rainy-cloud-3" />
                     </>
                 )}
                 {weather === 'snowy' && (
                     <>
-                        <img src={rainyCloud1} alt="rainy cloud" className="cloud rainy-cloud-1" />
-                        <img src={rainyCloud2} alt="rainy cloud" className="cloud rainy-cloud-2" />
-                        <img src={sunnyCloud1} alt="sunny cloud" className="cloud sunny-cloud-1" />
+                        <img style={cloudStyle} src={rainyCloud1} alt="rainy cloud" className="cloud rainy-cloud-1" />
+                        <img style={cloudStyle} src={rainyCloud2} alt="rainy cloud" className="cloud rainy-cloud-2" />
+                        <img style={cloudStyle} src={sunnyCloud1} alt="sunny cloud" className="cloud sunny-cloud-1" />
                     </>
                 )}
             </div>
