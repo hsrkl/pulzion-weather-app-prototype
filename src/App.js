@@ -14,7 +14,8 @@ function App() {
   const toggleWeather = () => {
     setWeather(current => {
       switch (current) {
-        case 'sunny': return 'rainy';
+        case 'sunny': return 'cloudy';
+        case 'cloudy': return 'rainy';
         case 'rainy': return 'snowy';
         case 'snowy': return 'sunny';
         default: return 'sunny';

@@ -25,7 +25,7 @@ function Window({ weather }) {
             for (let i = 0; i < 100; i++) {
                 const left = Math.floor(Math.random() * 100);
                 const animationDelay = Math.random() * 2;
-                const animationDuration = Math.random() * 1 + 0.5;
+                const animationDuration = Math.random() * 2 + 3; // Changed from (Math.random() * 1 + 0.5)
                 particles += `<div class="snow-particle" style="left: ${left}%; animation-delay: ${animationDelay}s; animation-duration: ${animationDuration}s;"></div>`;
             }
             container.innerHTML = particles;
@@ -35,14 +35,21 @@ function Window({ weather }) {
     }, [weather]);
 
     const cloudStyle = {
-        width: '125px',  // Set a very small base size
-        height: 'auto', // Maintain aspect ratio
-        imageRendering: 'pixelated' // Keep pixel art crisp
+        width: '125px',
+        height: 'auto',
+        imageRendering: 'pixelated'
     };
 
     return (
         <div className={`image-wrapper ${weather}-sky`}>
             <div className="clouds-container">
+                {weather === 'cloudy' && (
+                    <>
+                        <img style={cloudStyle} src={sunnyCloud1} alt="sunny cloud" className="cloud cloudy-cloud-1" />
+                        <img style={cloudStyle} src={sunnyCloud1} alt="sunny cloud" className="cloud cloudy-cloud-2" />
+                        <img style={cloudStyle} src={sunnyCloud1} alt="sunny cloud" className="cloud cloudy-cloud-3" />
+                    </>
+                )}
                 {weather === 'rainy' && (
                     <>
                         <img style={cloudStyle} src={rainyCloud1} alt="rainy cloud" className="cloud rainy-cloud-1" />

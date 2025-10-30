@@ -94,6 +94,11 @@ html {
     background-color: #556584;
 }
 
+.image-wrapper.cloudy-sky {
+    background-color: #77b5e4;
+    /* Duller blue color for cloudy weather */
+}
+
 .image-wrapper img {
     max-width: 100%;
     max-height: 100%;
@@ -175,6 +180,22 @@ html {
     left: -5%;
 }
 
+/* Cloudy cloud positions */
+.cloudy-cloud-1 {
+    top: 2%;
+    left: -5%;
+}
+
+.cloudy-cloud-2 {
+    top: 2%;
+    left: -5%;
+}
+
+.cloudy-cloud-3 {
+    top: 2%;
+    left: -5%;
+}
+
 /* Active states for rainy weather */
 .rainy-sky .rainy-cloud-1 {
     left: 10%;
@@ -204,6 +225,22 @@ html {
 
 .snowy-sky .sunny-cloud-1 {
     left: 35%;
+    opacity: 0.9;
+}
+
+/* Active states for cloudy weather */
+.cloudy-sky .cloudy-cloud-1 {
+    left: 15%;
+    opacity: 0.9;
+}
+
+.cloudy-sky .cloudy-cloud-2 {
+    left: 45%;
+    opacity: 0.9;
+}
+
+.cloudy-sky .cloudy-cloud-3 {
+    left: 75%;
     opacity: 0.9;
 }
 
