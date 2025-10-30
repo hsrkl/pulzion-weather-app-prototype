@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import './App.css';
 import Window from "./Window"
 
-
 function App() {
   const [isRaining, setIsRaining] = useState(false);
+  const [location, setLocation] = useState('');
+  const [inputValue, setInputValue] = useState('');
 
   const toggleRain = () => {
     setIsRaining(prev => !prev);
+  };
+
+  const handleRefresh = () => {
+    setLocation(inputValue);
+    setInputValue('');
   };
 
   return (
@@ -16,9 +22,16 @@ function App() {
         <div className="logo-container">
           <h2>Logo</h2>
         </div>
-        <button className="sidebar-button" onClick={() => alert("refresh")}>
+        <button className="sidebar-button" onClick={handleRefresh}>
           Refresh
         </button>
+        <input
+          type="text"
+          placeholder="City"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          className="sidebar-input"
+        />
       </aside>
       <main className="main-content">
         <div className="image-wrapper-wrapper">
@@ -29,6 +42,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;

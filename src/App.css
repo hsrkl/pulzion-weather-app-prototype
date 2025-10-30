@@ -23,6 +23,14 @@ html {
     flex-direction: column;
 }
 
+.city-input {
+    margin: 10px;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
 .main-content {
     flex: 1;
     display: flex;
@@ -44,12 +52,12 @@ html {
     left: 19%;
     transform: translate(-50%, -50%);
     color: black;
-    font-size: clamp(16px, 2.5vw, 48px); 
+    font-size: clamp(16px, 2.5vw, 48px);
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     z-index: 20;
     pointer-events: none;
-    transition: font-size 0.3s ease;  
+    transition: font-size 0.3s ease;
 }
 
 .image-wrapper {
@@ -65,9 +73,11 @@ html {
 .image-wrapper.rainy-sky {
     background-color: #4f6695;
 }
+
 .image-wrapper.snowy-sky {
     background-color: #556584;
 }
+
 .image-wrapper img {
     max-width: 100%;
     max-height: 100%;
@@ -122,10 +132,12 @@ html {
         transform: translateY(-10vh) translateX(0);
         opacity: 0.9;
     }
+
     50% {
         transform: translateY(calc(50vh)) translateX(10px);
         opacity: 0.95;
     }
+
     100% {
         transform: translateY(calc(100vh + 50px)) translateX(-10px);
         opacity: 0.85;
