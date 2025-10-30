@@ -1,1 +1,1 @@
-# Weather app project for pulzion 2025
+# Weather app project for Pulzion 2025
