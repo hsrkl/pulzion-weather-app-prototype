@@ -38,6 +38,20 @@ html {
     display: flex;
 }
 
+.overlay-text {
+    position: absolute;
+    top: 37.5%;
+    left: 19%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: clamp(16px, 2.5vw, 48px); 
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 20;
+    pointer-events: none;
+    transition: font-size 0.3s ease;  
+}
+
 .image-wrapper {
     position: relative;
     background-color: rgb(0, 157, 255);
