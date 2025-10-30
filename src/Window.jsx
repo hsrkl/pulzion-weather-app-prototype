@@ -85,6 +85,6 @@ function Window() {
         </div>
     );
 }
-// 27/120 123/175
+// 22.5 70.2
 
 export default Window;

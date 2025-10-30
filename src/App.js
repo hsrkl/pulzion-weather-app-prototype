@@ -35,7 +35,8 @@ function App() {
       </aside>
       <main className="main-content">
         <div className="image-wrapper-wrapper">
-          <div className="overlay-text">27 C</div>
+          <div className="overlay-text-temperature">27 C</div>
+          <div className="overlay-text-general-info">27 C</div>
           <Window isRaining={isRaining} onToggleRain={toggleRain} />
         </div>
       </main>
