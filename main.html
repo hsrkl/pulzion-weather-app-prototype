@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Demo Weather FETCH</title>
+    <style>
+      .container {
+        max-width: 600px;
+        margin: 50px auto;
+        text-align: center;
+      }
+      .search-box {
+        margin-bottom: 20px;
+      }
+      input {
+        padding: 8px;
+        width: 200px;
+      }
+      button {
+        padding: 8px 16px;
+        cursor: pointer;
+      }
+      #weather-info {
+        margin-top: 20px;
+      }
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="search-box">
+        <input type="text" id="cityInput" placeholder="Enter city name">
+        <button onclick="getWeather();
+        getQuote();">
+        Get Weather
+      </button>
+      </div>
+      <div id="weather-info"></div>
+      <div id="quote-info"></div>
+    </div>
+
+    <script type="module">
+      import { weatherTypeCodeDisplay } from './scripts/data.js';
+      
+      window.getWeather = async function() {
+        const cityName = document.getElementById('cityInput').value;
+        const weatherInfo = document.getElementById('weather-info');
+        
+        if (!cityName) {
+          weatherInfo.innerHTML = '<p class="error">Please enter a city name</p>';
+          return;
+        }
+
+        try {
+          const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}&count=1`);
+          const geoData = await geoResponse.json();
+          
+          console.log(geoData);
+          if (!geoData.results || geoData.results.length === 0) {
+            weatherInfo.innerHTML = '<p class="error">City not found. Please try another city.</p>';
+            return;
+          }
+
+          const { latitude, longitude, name, country } = geoData.results[0];
+          
+
+          const weatherType = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=weathercode`);
+          const weatherTypeData = await weatherType.json();
+          console.log(weatherTypeData);
+          let currentWeatherType = weatherTypeData.hourly.weathercode[0];
+          
+          const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
+          const weatherData = await weatherResponse.json();
+          
+          const weatherCode = weatherTypeData.hourly.weathercode[0];
+          const weatherDescription = weatherTypeCodeDisplay[String(weatherCode)]; 
+          
+          weatherInfo.innerHTML = `
+            <h2>Current Weather in ${name}, ${country}</h2>
+            <p>Weather Type: ${weatherDescription}</p>
+            <p>Temperature: ${weatherData.current_weather.temperature} °C</p>
+            <p>Wind Speed: ${weatherData.current_weather.windspeed} km/h</p>
+          `;
+        } catch (error) {
+          console.error('Error:', error);
+          weatherInfo.innerHTML = '<p class="error">Error fetching weather data. Please try again.</p>';
+        }
+      }
+
+      window.getQuote = async function() {
+        const quoteInfo = document.getElementById('quote-info');
+        try {
+          const response = await fetch('https://api.quotable.io/random');
+          const data = await response.json();
+          
+          quoteInfo.innerHTML = `
+            <div style="margin-top: 20px; padding: 15px; background-color: #f5f5f5; border-radius: 5px;">
+              <p style="font-style: italic;">"${data.content}"</p>
+              <p style="text-align: right;">- ${data.author}</p>
+            </div>
+          `;
+        } catch (error) {
+          console.error('Error fetching quote:', error);
+          quoteInfo.innerHTML = '<p class="error">Error fetching quote. Please try again.</p>';
+        }
+      }
+    </script>
+  </body>
+</html>
